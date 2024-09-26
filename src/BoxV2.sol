@@ -11,7 +11,7 @@ pragma solidity 0.8.20;
 /** Imports */
 // @Order Imports, Interfaces, Libraries, Contracts
 
-contract BoxV1 {
+contract BoxV2 {
 
     /** Errors */   
 
@@ -31,13 +31,17 @@ contract BoxV1 {
     receive() external payable{}
     fallback() external payable{}
 
+    function setNumber(uint256 newNumber) external {
+        number = newNumber;
+    }
+
     /** Getter Functions */
     function getNumber() external view returns(uint256) {
         return number;
     }
 
     function getVersion() external pure returns(uint256) {
-        return 1;
+        return 2;
     }
 
 }
