@@ -3,41 +3,70 @@ pragma solidity 0.8.20;
 
 /**
  * @title
- * @author 
- * @notice 
- * @dev 
+ * @author
+ * @notice
+ * @dev
  */
 
-/** Imports */
+/**
+ * Imports
+ */
 // @Order Imports, Interfaces, Libraries, Contracts
+import {OwnableUpgradeable} from "@ozu/contracts/access/OwnableUpgradeable.sol";
+import {UUPSUpgradeable} from "@ozu/contracts/proxy/utils/UUPSUpgradeable.sol";
+import {Initializable} from "@ozu/contracts/proxy/utils/Initializable.sol";
 
-contract BoxV1 {
+contract BoxV1 is Initializable, OwnableUpgradeable, UUPSUpgradeable {
+    /**
+     * Errors
+     */
 
-    /** Errors */   
+    /**
+     * Type Declarations
+     */
 
-    /** Type Declarations */
-
-    /** State Variables */
+    /**
+     * State Variables
+     */
     uint256 internal number;
 
-    /** Events */
+    /**
+     * Events
+     */
 
-    /** Constructor */
+    /**
+     * Constructor
+     */
 
-    /** Modifiers */
+    /// @custom:oz-upgrades-unsafe-allow constructor
 
-    /** Functions */
+    constructor() {
+        _disableInitializers();
+    }
+
+    function initialize() public initializer {
+        __Ownable_init(msg.sender);
+        __UUPSUpgradeable_init();
+    }
+
+    /**
+     * Modifiers
+     */
+
+    /**
+     * Functions
+     */
     // @Order recieve, fallback, external, public, internal, private
-    receive() external payable{}
-    fallback() external payable{}
+    function _authorizeUpgrade(address newImplementation) internal override {}
 
-    /** Getter Functions */
-    function getNumber() external view returns(uint256) {
+    /**
+     * Getter Functions
+     */
+    function getNumber() external view returns (uint256) {
         return number;
     }
 
-    function getVersion() external pure returns(uint256) {
+    function getVersion() external pure returns (uint256) {
         return 1;
     }
-
 }
